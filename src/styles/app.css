@@ -1,0 +1,55 @@
+/* Import Fonts */
+@import url("https://fonts.googleapis.com/css?family=Biryani:400,700");
+
+/* Resets */
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
+html,
+body {
+  min-width: 100%;
+  min-height: 100%;
+}
+
+/* CSS Vars */
+:root {
+  --nav-bar--height: 50px;
+  --main-color: darkgreen;
+}
+
+/* Main Styles */
+
+body {
+  padding-top: var(--nav-bar--height);
+  font-family: "Biryani", sans-serif;
+}
+
+.nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0 10px;
+  height: var(--nav-bar--height);
+  background-color: var(--main-color);
+  line-height: var(--nav-bar--height);
+  font-family: "Biryani", sans-serif;
+  color: #dfdfdf;
+  list-style-type: none;
+}
+
+.page {
+  position: fixed;
+  overflow: auto;
+  top: var(--nav-bar--height);
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background: #cccccc;
+}
+
+.page__main {
+  padding: 10px;
+}

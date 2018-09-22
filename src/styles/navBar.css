@@ -1,0 +1,25 @@
+.nav-bar__container {
+  display: flex;
+}
+
+.nav-bar__header {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.nav-bar__link {
+  list-style: none;
+  padding: 0 10px;
+}
+
+.nav-bar a,
+.nav-bar a:active,
+.nav-bar a:visited,
+.nav-bar a:link {
+  text-decoration: none;
+  color: #dfdfdf;
+}
+
+.nav-bar a:hover {
+  text-decoration: underline;
+}

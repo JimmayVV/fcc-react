@@ -22,13 +22,20 @@ module.exports = {
   "rules": {
     "react/jsx-filename-extension": [WARN, { "extensions": [".js", ".jsx"] }],
     "react/jsx-indent": [OFF],
+    "no-unexpected-multiline": 2,
     "prettier/prettier": [
       "error",
       {
         "trailingComma": "es5",
         "singleQuote": true,
         "printWidth": 120,
+        "semi": false,
       }
     ],
-  }
+  },
+  "overrides": [
+    {
+      "files": "src/**/*.js"
+    }
+  ]
 };
