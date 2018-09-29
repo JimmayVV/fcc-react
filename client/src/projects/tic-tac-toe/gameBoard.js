@@ -1,5 +1,5 @@
 import React from 'react'
 
-const GameBoard = ({ board }) => {}
+const GameBoard = () => <div>Board</div>
 
 export default GameBoard

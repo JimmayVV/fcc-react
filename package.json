@@ -1,67 +1,30 @@
 {
   "name": "fcc-react",
   "version": "1.0.0",
-  "description": "A collection of projects for the Free Code Camp curriculum, written with React",
-  "main": "src/server/index.js",
+  "description": "",
+  "main": "server/index.js",
   "scripts": {
-    "test": "jest",
-    "eslint": "eslint src/**/*.js",
-    "client": "npm run eslint && webpack-dev-server --config ./webpack.config.js --mode development --hot",
-    "server": "nodemon ./src/server/index.js",
-    "start": "concurrently \"npm run server\" \"npm run client\"",
-    "build": "npm run eslint && webpack-dev-server --config ./webpack.config.js -p"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon ./server/index.js",
+    "client": "cd client && npm run start",
+    "start": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JimmayVV/fcc-react.git"
   },
-  "keywords": [
-    "react",
-    "react-router"
-  ],
-  "author": "Jimmy Van Veen",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/JimmayVV/fcc-react/issues"
   },
   "homepage": "https://github.com/JimmayVV/fcc-react#readme",
-  "devDependencies": {
-    "@babel/core": "^7.1.0",
-    "@babel/plugin-proposal-class-properties": "^7.1.0",
-    "@babel/plugin-transform-async-to-generator": "^7.1.0",
-    "@babel/plugin-transform-regenerator": "^7.0.0",
-    "@babel/preset-env": "^7.1.0",
-    "@babel/preset-react": "^7.0.0",
-    "@babel/preset-stage-2": "^7.0.0",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-eslint": "^9.0.0",
-    "babel-jest": "^23.6.0",
-    "babel-loader": "^8.0.2",
-    "clean-webpack-plugin": "^0.1.19",
-    "concurrently": "^4.0.1",
-    "css-loader": "^1.0.0",
-    "eslint": "^5.6.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-config-prettier": "^3.0.1",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^6.1.1",
-    "eslint-plugin-prettier": "^2.6.2",
-    "eslint-plugin-react": "^7.11.1",
-    "html-webpack-plugin": "^3.2.0",
-    "nodemon": "^1.18.4",
-    "prettier": "^1.14.3",
-    "style-loader": "^0.23.0",
-    "webpack": "^4.19.1",
-    "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.8"
-  },
   "dependencies": {
-    "@babel/polyfill": "^7.0.0",
-    "@babel/runtime": "^7.1.2",
-    "express": "^4.16.3",
-    "prop-types": "^15.6.2",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "react-router-dom": "^4.3.1"
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "concurrently": "^4.0.1",
+    "nodemon": "^1.18.4"
   }
 }

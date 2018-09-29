@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: "./src/client/index.js",
+  entry: "./src/index.js",
   module: {
     rules: [
       {
@@ -38,6 +38,7 @@ module.exports = {
   devServer: {
     contentBase: "./build",
     port: 3000,
+    historyApiFallback: true,
     proxy: {
       "/api": "http://localhost:8080"
     }

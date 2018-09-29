@@ -23,7 +23,6 @@ class NavBar extends React.Component {
     const response = await fetch('/api/getUsername')
     const name = await response.json()
     if (name) this.setState({ name: name.username })
-    console.log(name)
   }
 
   render() {
