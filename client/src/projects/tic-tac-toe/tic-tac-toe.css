@@ -1,3 +1,39 @@
-.ticTacToe-contatiner {
+.ticTacToe-container {
+  --lightBG: #cc0;
+  width: 100%;
+  height: 100%;
+  background: var(--lightBG);
+}
+
+.ticTacToe-board {
   display: grid;
+  grid-gap: 2px;
+  grid-template-columns: repeat(3, 1fr);
+  width: 50%;
+  background: #333;
+  margin: 0 auto;
+}
+
+.ticTacToe-cell {
+  background: var(--lightBG);
+  position: relative;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.ticTacToe-cell::before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+
+.ticTacToe-cell__content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
