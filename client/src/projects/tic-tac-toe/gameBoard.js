@@ -4,28 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { playMove as _playMove, changePlayer as _changePlayer } from './actions'
 
-const Cell = ({ applyClick, row, col, board }) => {
-  const icon = board[row][col]
-
-  return (
-    <div
-      className="ticTacToe-cell"
-      onClick={() => applyClick(row, col)}
-      onKeyPress={() => applyClick(row, col)}
-      role="button"
-      tabIndex={-1}
-    >
-      <div className="ticTacToe-cell__content">{icon === null ? '' : icon.icon}</div>
-    </div>
-  )
-}
-
-Cell.propTypes = {
-  applyClick: PropTypes.func.isRequired,
-  row: PropTypes.number.isRequired,
-  col: PropTypes.number.isRequired,
-  board: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)).isRequired,
-}
+import Cell from './cell'
 
 class GameBoard extends React.Component {
   static propTypes = {
@@ -90,61 +69,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(GameBoard)
-
-/* <div
-      className="ticTacToe-cell"
-      onClick={applyClick(0, 0)}
-      onKeyPress={applyClick(0, 0)}
-      role="button"
-      tabIndex={-1}
-    >
-      <div className="ticTacToe-cell__content">{board[0][0]}</div>
-    </div>
-
-    <div
-      className="ticTacToe-cell"
-      onClick={applyClick(0, 1)}
-      onKeyPress={applyClick(0, 1)}
-      role="button"
-      tabIndex={-1}
-    >
-      <div className="ticTacToe-cell__content">{board[0][1]}</div>
-    </div>
-
-    <div className="ticTacToe-cell">
-      <div className="ticTacToe-cell__content">{board[0][2]}</div>
-    </div>
-
-    <div className="ticTacToe-cell">
-      <div className="ticTacToe-cell__content">{board[1][0]}</div>
-    </div>
-
-    <div className="ticTacToe-cell">
-      <div className="ticTacToe-cell__content">{board[1][1]}</div>
-    </div>
-
-    <div className="ticTacToe-cell">
-      <div className="ticTacToe-cell__content">{board[1][2]}</div>
-    </div>
-
-    <div className="ticTacToe-cell">
-      <div className="ticTacToe-cell__content">{board[2][0]}</div>
-    </div>
-
-    <div className="ticTacToe-cell">
-      <div className="ticTacToe-cell__content">{board[2][1]}</div>
-    </div>
-
-    <div className="ticTacToe-cell">
-      <div className="ticTacToe-cell__content">{board[2][2]}</div>
-    </div>
-
-GameBoard.defaultProps = {
-  board: [[null, null, null], [null, null, null], [null, null, null]],
-  applyClick: () => {},
-}
-
-GameBoard.propTypes = {
-  board: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
-  applyClick: PropTypes.func,
-} */
