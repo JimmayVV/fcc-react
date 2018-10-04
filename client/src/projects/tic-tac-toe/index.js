@@ -1,9 +1,10 @@
 import React from 'react'
-import { Provider } from 'react-redux'
+import { Provider, connect } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 
 import reducers from './reducers'
+import { resetBoard } from './actions'
 
 import GameBoard from './gameBoard'
 import './tic-tac-toe.css'
@@ -58,13 +59,25 @@ export default class TicTacToe extends Component {
 }
 */
 
-export default function TicTacToe(props) {
-  return (
-    <Provider store={createStoreWithMiddleware(reducers)}>
-      <div className="ticTacToe-container">
-        Tic Tac Toe!
-        <GameBoard {...props} />
-      </div>
-    </Provider>
-  )
-}
+const Heading = connect(
+  null,
+  { resetBoard }
+)(props => (
+  <>
+    Tic Tac Toe!
+    <button type="button" onClick={() => props.resetBoard()}>
+      Reset
+    </button>
+  </>
+))
+
+const TicTacToe = props => (
+  <Provider store={createStoreWithMiddleware(reducers)}>
+    <div className="ticTacToe-container">
+      <Heading />
+      <GameBoard {...props} />
+    </div>
+  </Provider>
+)
+
+export default TicTacToe

@@ -1,4 +1,4 @@
-import { PLAY_MOVE } from '../actions'
+import { PLAY_MOVE, RESET_BOARD } from '../actions'
 
 const initialState = [[null, null, null], [null, null, null], [null, null, null]]
 
@@ -29,6 +29,8 @@ export default (state = initialState, action = {}) => {
       const result = playMove(state, row, col, player)
       return result.grid
     }
+    case RESET_BOARD:
+      return initialState
     default:
       return [...state]
   }
