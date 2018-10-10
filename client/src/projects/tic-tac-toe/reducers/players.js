@@ -9,7 +9,7 @@ const defaultState = [
   {
     // [1]
     icon: 'O',
-    human: true,
+    human: false,
   },
 ]
 

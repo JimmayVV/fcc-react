@@ -38,6 +38,8 @@ body {
   font-family: "Biryani", sans-serif;
   color: #dfdfdf;
   list-style-type: none;
+  box-shadow: 0 0px 5px rgba(0, 0, 0, 0.9);
+  z-index: 1;
 }
 
 .page {

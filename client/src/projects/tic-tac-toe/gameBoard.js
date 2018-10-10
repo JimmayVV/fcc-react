@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { playMove as _playMove, changePlayer as _changePlayer } from './actions'
+import gameHelper from './helpers/game'
 
 import Cell from './cell'
 
@@ -25,13 +26,54 @@ class GameBoard extends React.Component {
 
   applyClick = (row, col) => {
     const { playMove, changePlayer, players, currentPlayer, board } = this.props
+    let winner // let { winner } = this.state || this.props
 
-    if (board[row][col] !== null) return
+    if (board[row][col] !== null || winner) return
 
     const newPlayer = currentPlayer.icon === players[0].icon ? players[1] : players[0]
 
     playMove(row, col, currentPlayer)
-    changePlayer(newPlayer)
+
+    // Make a new board object so that we can add the move just played before calculating winners
+    const newBoard = board.map((_row, rowIndex) =>
+      _row.map((_col, colIndex) => {
+        // If the current move index is selected, then play add this move to the new board
+        // Otherwise it's going to still think it's null (most likely due to async redux)
+        if (rowIndex === row && colIndex === col) return currentPlayer.icon
+        return _col === null ? null : _col.icon
+      })
+    )
+
+    winner = gameHelper.winner(newBoard)
+
+    const validMoves = gameHelper.validMoves(newBoard)
+
+    // If there is no winner, the nextPlayer is computer, and there are valid moves left, then play the ocmputer move
+    if (!winner && !newPlayer.human && validMoves.length > 0) {
+      const move = gameHelper.getEasyMove(validMoves)
+      playMove(move.row, move.col, newPlayer)
+      // Now check if the computer won
+      newBoard[move.row][move.col] = newPlayer.icon
+      winner = gameHelper.winner(newBoard)
+      // changePlayer(newPlayer.icon === players[0].icon ? players[1] : players[0])
+    } else {
+      // If there is no computer player then simply change who the current player is
+      changePlayer(newPlayer)
+    }
+
+    // Check if there is a winner, and do something about it
+    if (winner) {
+      alert(`Winner! ${winner}`)
+      // this.setState({ winner })
+    }
+  }
+
+  computerMove = difficulty => {
+    if (difficulty === 'HARD') {
+      // Hard mode logic (minimax)
+    } else {
+      // Easy mode logic (just pick a random move)
+    }
   }
 
   render() {

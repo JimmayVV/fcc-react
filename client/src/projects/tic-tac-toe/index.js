@@ -1,15 +1,43 @@
 import React from 'react'
 import { Provider, connect } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
 
 import reducers from './reducers'
-import { resetBoard } from './actions'
+import { resetBoard, changePlayer } from './actions'
 
 import GameBoard from './gameBoard'
 import './tic-tac-toe.css'
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore)
+const createStoreWithMiddleware = applyMiddleware()(createStore)
+
+export const Heading = connect(
+  state => ({ players: state.players }), // MapStateToProps
+  { resetBoard, changePlayer } // MapDispatchToProps
+)(props => (
+  <>
+    Tic Tac Toe!
+    <button
+      type="button"
+      onClick={() => {
+        props.resetBoard()
+        props.changePlayer(props.players[0]) // Reset player back to player 1, in case player 2 is currently active
+      }}
+    >
+      Reset
+    </button>
+  </>
+))
+
+const TicTacToe = props => (
+  <Provider store={createStoreWithMiddleware(reducers)}>
+    <div className="ticTacToe-container">
+      <Heading />
+      <GameBoard {...props} />
+    </div>
+  </Provider>
+)
+
+export default TicTacToe
 
 /*
 const Players = {
@@ -58,26 +86,3 @@ export default class TicTacToe extends Component {
   }
 }
 */
-
-const Heading = connect(
-  null,
-  { resetBoard }
-)(props => (
-  <>
-    Tic Tac Toe!
-    <button type="button" onClick={() => props.resetBoard()}>
-      Reset
-    </button>
-  </>
-))
-
-const TicTacToe = props => (
-  <Provider store={createStoreWithMiddleware(reducers)}>
-    <div className="ticTacToe-container">
-      <Heading />
-      <GameBoard {...props} />
-    </div>
-  </Provider>
-)
-
-export default TicTacToe

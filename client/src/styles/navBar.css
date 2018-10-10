@@ -7,7 +7,8 @@
   font-weight: bold;
 }
 
-.nav-bar__link, .nav-bar li {
+.nav-bar__link,
+.nav-bar li {
   list-style: none;
   padding: 0 10px;
 }
