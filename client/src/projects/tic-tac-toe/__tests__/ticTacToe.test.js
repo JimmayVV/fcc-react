@@ -1,10 +1,9 @@
-import React from 'react'
-import { shallow } from 'enzyme'
-import TicTacToe, { Heading } from '../index'
-import GameBoard from '../gameBoard'
+import React from "react";
+import { render } from "react-testing-library";
+import TicTacToe, { Heading } from "../index";
+import GameBoard from "../gameBoard";
 
-it('should have 1 heading and 1 game board', () => {
-  const wrapper = shallow(<TicTacToe />)
-
-  expect(wrapper.find(Heading).length).toEqual(1)
-})
+it("should have 1 heading and 1 game board", () => {
+  const { container } = render(<TicTacToe />);
+  expect(container.firstChild).toMatchSnapshot();
+});

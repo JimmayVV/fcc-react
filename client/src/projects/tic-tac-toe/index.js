@@ -1,14 +1,11 @@
 import React from 'react'
 import { Provider, connect } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux'
+import store from './stores/gameStore'
 
-import reducers from './reducers'
 import { resetBoard, changePlayer } from './actions'
 
 import GameBoard from './gameBoard'
 import './tic-tac-toe.css'
-
-const createStoreWithMiddleware = applyMiddleware()(createStore)
 
 export const Heading = connect(
   state => ({ players: state.players }), // MapStateToProps
@@ -29,7 +26,7 @@ export const Heading = connect(
 ))
 
 const TicTacToe = props => (
-  <Provider store={createStoreWithMiddleware(reducers)}>
+  <Provider store={store}>
     <div className="ticTacToe-container">
       <Heading />
       <GameBoard {...props} />
