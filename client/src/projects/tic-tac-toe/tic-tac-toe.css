@@ -1,24 +1,59 @@
+@import url("https://fonts.googleapis.com/css?family=Merienda+One");
+
 .ticTacToe-container {
-  --lightBG: #cc0;
+  --font-family: "Merienda One", cursive;
+  --gradient: linear-gradient(270deg, #fe0557, #fe8b05);
+  font-family: var(--font-family);
+  /*
+  linear-gradient(
+    335deg,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.5) 35%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  */
+  --lightBG: #fe0557;
   width: 100%;
   height: 100%;
-  background: var(--lightBG);
+  background: var(--gradient);
+
+  background-size: 400% 400%;
+
+  -webkit-animation: AnimateBG 30s ease infinite;
+  -moz-animation: AnimateBG 30s ease infinite;
+  animation: AnimateBG 30s ease infinite;
+}
+
+.ticTacToe-header {
+  text-align: center;
 }
 
 .ticTacToe-board {
+  font-size: 500%;
   display: grid;
-  grid-gap: 2px;
+  grid-gap: 0px;
   grid-template-columns: repeat(3, 1fr);
-  width: 50%;
-  background: #333;
+  min-width: 30%;
+  max-width: 80vh;
+  /* background: #333; */
   margin: 0 auto;
 }
 
 .ticTacToe-cell {
-  background: var(--lightBG);
+  /* background: var(--lightBG); */
   position: relative;
   box-sizing: border-box;
   outline: none;
+  border-right: 3px solid #333;
+  border-bottom: 3px solid #333;
+}
+
+.ticTacToe-cell:nth-child(3n + 3) {
+  border-right: 0;
+}
+
+.ticTacToe-cell:nth-child(n + 7) {
+  border-bottom: 0;
 }
 
 .ticTacToe-cell::before {
@@ -36,4 +71,219 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.ticTacToe-modal {
+  --modal-border: 1px solid rgba(0, 0, 0, 0.8);
+  position: absolute;
+  width: 300px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.8);
+  border: var(--modal-border);
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.ticTacToe-modal-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.ticTacToe-modal-container__closed {
+  display: none;
+}
+
+.modal-open {
+  filter: blur(5px);
+}
+
+.ticTacToe-modal-header {
+  background: linear-gradient(180deg, #eeeeee, #aaaaaa);
+  border-radius: 5px 5px 0 0;
+  padding: 5px;
+  border-bottom: var(--modal-border);
+  font-size: 1.5em;
+}
+
+.ticTacToe-modal-content {
+  padding: 5px;
+  font-size: 1.1em;
+  min-height: 100px;
+}
+
+.ticTacToe-modal-footer {
+  padding: 5px;
+  font-size: 1.1em;
+}
+
+/* prettier-ignore */
+.ticTacToe-button {
+  --btn-light-color: 200, 20, 20;
+  --btn-dark-color: 120, 10, 10;
+
+  font-family: var(--font-family);
+  margin: 2px 5px 5px 2px;
+  padding: 8px 15px;
+  font-size: 1em;
+  border: 1px solid #000;
+  border-radius: 5px;
+  outline: none;
+  transition: color 0.3s ease-in-out;
+  background-image: linear-gradient(top, rgb(var(--btn-light-color)) 50%, rgb(var(--btn-dark-color)));
+  background-image: -webkit-linear-gradient(top, rgb(var(--btn-light-color)) 50%, rgb(var(--btn-dark-color)));
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.2) inset;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.5);
+  color: #CCC;
+  position: relative;
+
+  -webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
+	-ms-transition: all 0.3s ease-in-out;
+	-o-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+}
+
+/* prettier-ignore */
+.ticTacToe-button:active {
+  background-image: linear-gradient(top, rgb(var(--btn-dark-color)) 50%, rgb(var(--btn-light-color)));
+  background-image: -webkit-linear-gradient(top, rgb(var(--btn-dark-color)) 50%, rgb(var(--btn-light-color)));
+}
+
+/* prettier-ignore */
+.ticTacToe-button-highlight {
+  width: 100%;
+  height: 1px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: -webkit-linear-gradient(left top,
+  rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.6) 35%, rgba(255, 255, 255, 0.6) 70%, rgba(255, 255, 255, 0)
+  );
+  background: -moz-linear-gradient(left top,
+  rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.6) 35%, rgba(255, 255, 255, 0.6) 70%, rgba(255, 255, 255, 0)
+  );
+  background: -ms-linear-gradient(left top,
+  rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.6) 35%, rgba(255, 255, 255, 0.6) 70%, rgba(255, 255, 255, 0)
+  );
+  background: -o-linear-gradient(left top,
+  rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.6) 35%, rgba(255, 255, 255, 0.6) 70%, rgba(255, 255, 255, 0)
+  );
+  background: linear-gradient(left top,
+  rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.6) 35%, rgba(255, 255, 255, 0.6) 70%, rgba(255, 255, 255, 0)
+  );
+  opacity: 0.2;
+
+  -webkit-transition: opacity 0.3s ease-in-out;
+  -moz-transition: opacity 0.3s ease-in-out;
+  -ms-transition: opacity 0.3s ease-in-out;
+  -o-transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.ticTacToe-button:hover .ticTacToe-button-highlight {
+  opacity: 1;
+}
+
+/* prettier-ignore */
+.ticTacToe-button-primary {
+  --btn-light-color-primary: 20, 200, 20;
+  --btn-dark-color-primary: 10, 120, 10;
+
+  background-image: linear-gradient(top, rgb(var(--btn-light-color-primary)) 50%, rgb(var(--btn-dark-color-primary)));
+  background-image: -webkit-linear-gradient(top, rgb(var(--btn-light-color-primary)) 50%, rgb(var(--btn-dark-color-primary)));
+  color: #111;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.3);
+}
+
+/* prettier-ignore */
+.ticTacToe-button-primary:active {
+  background-image: linear-gradient(top, rgb(var(--btn-dark-color-primary)) 50%, rgb(var(--btn-light-color-primary)));
+  background-image: -webkit-linear-gradient(top, rgb(var(--btn-dark-color-primary)) 50%, rgb(var(--btn-light-color-primary)));
+}
+
+/* prettier-ignore */
+.ticTacToe-button-primary .ticTacToe-button-highlight {
+  background: -webkit-linear-gradient(left top,
+  rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.9) 35%, rgba(255, 255, 255, 0.9) 70%, rgba(255, 255, 255, 0)
+  );
+  background: -moz-linear-gradient(left top,
+  rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.9) 35%, rgba(255, 255, 255, 0.9) 70%, rgba(255, 255, 255, 0)
+  );
+  background: -ms-linear-gradient(left top,
+  rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.9) 35%, rgba(255, 255, 255, 0.9) 70%, rgba(255, 255, 255, 0)
+  );
+  background: -o-linear-gradient(left top,
+  rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.9) 35%, rgba(255, 255, 255, 0.9) 70%, rgba(255, 255, 255, 0)
+  );
+  background: linear-gradient(left top,
+  rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.9) 35%, rgba(255, 255, 255, 0.9) 70%, rgba(255, 255, 255, 0)
+  );
+}
+
+/* prettier-ignore */
+.ticTacToe-button-danger {
+  --btn-light-color-primary: 200, 20, 20;
+  --btn-dark-color-primary: 120, 10, 10;
+
+  background-image: linear-gradient(top, rgb(var(--btn-light-color-primary)) 50%, rgb(var(--btn-dark-color-primary)));
+  background-image: -webkit-linear-gradient(top, rgb(var(--btn-light-color-primary)) 50%, rgb(var(--btn-dark-color-primary)));
+}
+
+/* prettier-ignore */
+.ticTacToe-button-danger:active {
+  background-image: linear-gradient(top, rgb(var(--btn-dark-color-primary)) 50%, rgb(var(--btn-light-color-primary)));
+  background-image: -webkit-linear-gradient(top, rgb(var(--btn-dark-color-primary)) 50%, rgb(var(--btn-light-color-primary)));
+}
+
+/*
+.ticTacToe-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
+}
+*/
+
+@-webkit-keyframes AnimateBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@-moz-keyframes AnimateBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes AnimateBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }

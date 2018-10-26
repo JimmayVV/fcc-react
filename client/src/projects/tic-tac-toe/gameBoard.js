@@ -2,58 +2,37 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { playMove as _playMove, changePlayer as _changePlayer } from './actions'
+import { playMove as _playMove, changePlayer as _changePlayer, endGame as _endGame, TIE_GAME } from './actions'
 import gameHelper from './helpers/game'
 
 import Cell from './cell'
 
 class GameBoard extends React.Component {
-  static propTypes = {
-    board: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)).isRequired,
-    players: PropTypes.arrayOf(
-      PropTypes.shape({
-        icon: PropTypes.string.isRequired,
-        human: PropTypes.bool.isRequired,
-      })
-    ).isRequired,
-    currentPlayer: PropTypes.shape({
-      icon: PropTypes.string.isRequired,
-      human: PropTypes.bool.isRequired,
-    }).isRequired,
-    playMove: PropTypes.func.isRequired,
-    changePlayer: PropTypes.func.isRequired,
-  }
+  applyClick = pos => {
+    const { playMove, changePlayer, players, currentPlayer, board, endGame, gameOver } = this.props
 
-  applyClick = (row, col) => {
-    const { playMove, changePlayer, players, currentPlayer, board } = this.props
-    let winner // let { winner } = this.state || this.props
-
-    if (board[row][col] !== null || winner) return
+    if (board[pos] !== null || gameOver) return
 
     const newPlayer = currentPlayer.icon === players[0].icon ? players[1] : players[0]
 
-    playMove(row, col, currentPlayer)
+    playMove(pos, currentPlayer)
 
     // Make a new board object so that we can add the move just played before calculating winners
-    const newBoard = board.map((_row, rowIndex) =>
-      _row.map((_col, colIndex) => {
-        // If the current move index is selected, then play add this move to the new board
-        // Otherwise it's going to still think it's null (most likely due to async redux)
-        if (rowIndex === row && colIndex === col) return currentPlayer.icon
-        return _col === null ? null : _col.icon
-      })
-    )
+    const newBoard = board.map((_pos, index) => {
+      if (index === pos) return currentPlayer.icon
+      return _pos === null ? null : _pos.icon
+    })
 
-    winner = gameHelper.winner(newBoard)
+    let winner = gameHelper.winner(newBoard)
 
     const validMoves = gameHelper.validMoves(newBoard)
 
     // If there is no winner, the nextPlayer is computer, and there are valid moves left, then play the ocmputer move
     if (!winner && !newPlayer.human && validMoves.length > 0) {
       const move = gameHelper.getEasyMove(validMoves)
-      playMove(move.row, move.col, newPlayer)
+      playMove(move.pos, newPlayer)
       // Now check if the computer won
-      newBoard[move.row][move.col] = newPlayer.icon
+      newBoard[move.pos] = newPlayer.icon
       winner = gameHelper.winner(newBoard)
       // changePlayer(newPlayer.icon === players[0].icon ? players[1] : players[0])
     } else {
@@ -63,8 +42,10 @@ class GameBoard extends React.Component {
 
     // Check if there is a winner, and do something about it
     if (winner) {
-      alert(`Winner! ${winner}`)
+      endGame(winner)
       // this.setState({ winner })
+    } else if (validMoves.length === 0) {
+      endGame(TIE_GAME)
     }
   }
 
@@ -77,22 +58,42 @@ class GameBoard extends React.Component {
   }
 
   render() {
-    const { board } = this.props
+    const { board, gameOver, gameStarted } = this.props
 
     return (
-      <div className="ticTacToe-board">
-        <Cell row={0} col={0} applyClick={this.applyClick} board={board} />
-        <Cell row={0} col={1} applyClick={this.applyClick} board={board} />
-        <Cell row={0} col={2} applyClick={this.applyClick} board={board} />
-        <Cell row={1} col={0} applyClick={this.applyClick} board={board} />
-        <Cell row={1} col={1} applyClick={this.applyClick} board={board} />
-        <Cell row={1} col={2} applyClick={this.applyClick} board={board} />
-        <Cell row={2} col={0} applyClick={this.applyClick} board={board} />
-        <Cell row={2} col={1} applyClick={this.applyClick} board={board} />
-        <Cell row={2} col={2} applyClick={this.applyClick} board={board} />
+      <div className={`ticTacToe-board ${gameOver || !gameStarted ? 'modal-open' : ''}`}>
+        <Cell pos={0} applyClick={this.applyClick} board={board} />
+        <Cell pos={1} applyClick={this.applyClick} board={board} />
+        <Cell pos={2} applyClick={this.applyClick} board={board} />
+        <Cell pos={3} applyClick={this.applyClick} board={board} />
+        <Cell pos={4} applyClick={this.applyClick} board={board} />
+        <Cell pos={5} applyClick={this.applyClick} board={board} />
+        <Cell pos={6} applyClick={this.applyClick} board={board} />
+        <Cell pos={7} applyClick={this.applyClick} board={board} />
+        <Cell pos={8} applyClick={this.applyClick} board={board} />
       </div>
     )
   }
+}
+
+// PropTypes validation
+GameBoard.propTypes = {
+  board: PropTypes.arrayOf(PropTypes.object).isRequired,
+  players: PropTypes.arrayOf(
+    PropTypes.shape({
+      icon: PropTypes.string.isRequired,
+      human: PropTypes.bool.isRequired,
+    })
+  ).isRequired,
+  currentPlayer: PropTypes.shape({
+    icon: PropTypes.string.isRequired,
+    human: PropTypes.bool.isRequired,
+  }).isRequired,
+  playMove: PropTypes.func.isRequired,
+  changePlayer: PropTypes.func.isRequired,
+  endGame: PropTypes.func.isRequired,
+  gameOver: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]).isRequired,
+  gameStarted: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]).isRequired,
 }
 
 function mapStateToProps(state) {
@@ -100,11 +101,13 @@ function mapStateToProps(state) {
     board: state.board,
     players: state.players,
     currentPlayer: state.currentPlayer,
+    gameOver: state.gameOver,
+    gameStarted: state.gameStarted,
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ playMove: _playMove, changePlayer: _changePlayer }, dispatch)
+  return bindActionCreators({ playMove: _playMove, changePlayer: _changePlayer, endGame: _endGame }, dispatch)
 }
 
 export default connect(

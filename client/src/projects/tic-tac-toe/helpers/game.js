@@ -1,18 +1,18 @@
 const gameHelper = {
   winner: grid => {
     // Rows
-    if (grid[0][0] !== null && grid[0][0] === grid[0][1] && grid[0][1] === grid[0][2]) return grid[0][0]
-    if (grid[1][0] !== null && grid[1][0] === grid[1][1] && grid[1][1] === grid[1][2]) return grid[1][0]
-    if (grid[2][0] !== null && grid[2][0] === grid[2][1] && grid[2][1] === grid[2][2]) return grid[2][0]
+    if (grid[0] !== null && grid[0] === grid[1] && grid[1] === grid[2]) return grid[0]
+    if (grid[3] !== null && grid[3] === grid[4] && grid[4] === grid[5]) return grid[3]
+    if (grid[6] !== null && grid[6] === grid[7] && grid[7] === grid[8]) return grid[6]
 
     // Cols
-    if (grid[0][0] !== null && grid[0][0] === grid[1][0] && grid[1][0] === grid[2][0]) return grid[0][0]
-    if (grid[0][1] !== null && grid[0][1] === grid[1][1] && grid[1][1] === grid[2][1]) return grid[0][1]
-    if (grid[0][2] !== null && grid[0][2] === grid[1][2] && grid[1][2] === grid[2][2]) return grid[0][2]
+    if (grid[0] !== null && grid[0] === grid[3] && grid[3] === grid[6]) return grid[0]
+    if (grid[1] !== null && grid[1] === grid[4] && grid[4] === grid[7]) return grid[1]
+    if (grid[2] !== null && grid[2] === grid[5] && grid[5] === grid[8]) return grid[2]
 
     // Diags
-    if (grid[0][0] !== null && grid[0][0] === grid[1][1] && grid[1][1] === grid[2][2]) return grid[0][0]
-    if (grid[2][0] !== null && grid[2][0] === grid[1][1] && grid[1][1] === grid[0][2]) return grid[2][0]
+    if (grid[0] !== null && grid[0] === grid[4] && grid[4] === grid[8]) return grid[0]
+    if (grid[6] !== null && grid[6] === grid[4] && grid[4] === grid[2]) return grid[6]
 
     // Default return
     return false
@@ -21,13 +21,9 @@ const gameHelper = {
   validMoves: grid => {
     const validMoves = []
 
-    // if (this.winner(grid)) {
-    for (let r = 0; r < grid.length; r += 1) {
-      for (let c = 0; c < grid[r].length; c += 1) {
-        if (grid[r][c] === null) validMoves.push({ row: r, col: c })
-      }
+    for (let i = 0; i < grid.length; i += 1) {
+      if (grid[i] === null) validMoves.push({ pos: i })
     }
-    // }
 
     return validMoves
   },

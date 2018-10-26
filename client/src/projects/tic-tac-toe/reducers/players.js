@@ -1,4 +1,4 @@
-import { CHANGE_PLAYER } from '../actions'
+import { CHANGE_PLAYER, RESET_GAME } from '../actions'
 
 const defaultState = [
   {
@@ -17,6 +17,8 @@ export const currentPlayer = (state = defaultState[0], action = {}) => {
   switch (action.type) {
     case CHANGE_PLAYER:
       return action.payload
+    case RESET_GAME:
+      return defaultState[0]
     default:
       return state
   }

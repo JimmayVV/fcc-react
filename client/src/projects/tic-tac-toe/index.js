@@ -1,29 +1,10 @@
 import React from 'react'
-import { Provider, connect } from 'react-redux'
+import { Provider } from 'react-redux'
 import store from './stores/gameStore'
 
-import { resetBoard, changePlayer } from './actions'
-
 import GameBoard from './gameBoard'
+import Heading from './heading'
 import './tic-tac-toe.css'
-
-export const Heading = connect(
-  state => ({ players: state.players }), // MapStateToProps
-  { resetBoard, changePlayer } // MapDispatchToProps
-)(props => (
-  <>
-    Tic Tac Toe!
-    <button
-      type="button"
-      onClick={() => {
-        props.resetBoard()
-        props.changePlayer(props.players[0]) // Reset player back to player 1, in case player 2 is currently active
-      }}
-    >
-      Reset
-    </button>
-  </>
-))
 
 const TicTacToe = props => (
   <Provider store={store}>

@@ -1,14 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Cell = ({ applyClick, row, col, board }) => {
-  const icon = board[row][col]
+const Cell = ({ applyClick, pos, board }) => {
+  const icon = board[pos]
 
   return (
     <div
       className="ticTacToe-cell"
-      onClick={() => applyClick(row, col)}
-      onKeyPress={() => applyClick(row, col)}
+      onClick={() => applyClick(pos)}
+      onKeyPress={() => applyClick(pos)}
       role="button"
       tabIndex={-1}
     >
@@ -19,9 +19,8 @@ const Cell = ({ applyClick, row, col, board }) => {
 
 Cell.propTypes = {
   applyClick: PropTypes.func.isRequired,
-  row: PropTypes.number.isRequired,
-  col: PropTypes.number.isRequired,
-  board: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)).isRequired,
+  pos: PropTypes.number.isRequired,
+  board: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
 
 export default Cell

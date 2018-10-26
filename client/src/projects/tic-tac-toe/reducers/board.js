@@ -1,35 +1,21 @@
-import { PLAY_MOVE, RESET_BOARD } from '../actions'
+import { PLAY_MOVE, RESET_GAME, RESET_BOARD } from '../actions'
 
-const initialState = [[null, null, null], [null, null, null], [null, null, null]]
-
-const playMove = (grid, row, col, player) => {
-  const newGrid = []
-  let altered = false
-
-  for (let r = 0; r < grid.length; r += 1) {
-    newGrid.push([])
-    for (let c = 0; c < grid[r].length; c += 1) {
-      if (r === row && c === col) {
-        newGrid[r].push(player)
-        altered = true
-      } else {
-        newGrid[r].push(grid[r][c])
-      }
-    }
-  }
-
-  // TODO: refactor to just return the new grid
-  return { grid: newGrid, altered }
-}
+const initialState = [null, null, null, null, null, null, null, null, null]
 
 export default (state = initialState, action = {}) => {
   switch (action.type) {
     case PLAY_MOVE: {
-      const { row, col, player } = action.payload
-      const result = playMove(state, row, col, player)
-      return result.grid
+      const { pos, player } = action.payload
+
+      return state.map((elem, index) => {
+        // If the index matches the position we're setting, and that element is null, then set it to the player
+        if (index === pos && elem === null) return player
+        // If the cell was occupied already, or not the cell we were aiming for, then just return whatever the grid previously had
+        return elem
+      })
     }
     case RESET_BOARD:
+    case RESET_GAME:
       return initialState
     default:
       return [...state]
