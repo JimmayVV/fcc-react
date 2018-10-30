@@ -1,6 +1,5 @@
 import React from 'react'
 import {render, fireEvent} from 'react-testing-library'
-import {queryAllByTestId, queryByTestId} from 'dom-testing-library'
 import GameBoard from '../gameBoard'
 
 // Redux
@@ -18,18 +17,16 @@ it('should render', () => {
 })
 
 it('should have 9 cell children', () => {
-  const {getByTestId} = renderWithProviders(<GameBoard />)
+  const {getByTestId, queryAllByTestId} = renderWithProviders(<GameBoard />)
   const gameBoard = getByTestId('gameboard')
-  const cells = queryAllByTestId(gameBoard, 'cell')
+  const cells = queryAllByTestId('cell')
   expect(cells.length).toBe(9)
 })
 
 it("should render a user's click", () => {
-  const {getByTestId} = renderWithProviders(<GameBoard />)
-  const gameBoard = getByTestId('gameboard')
-  const cells = queryAllByTestId(gameBoard, 'cell')
-  let cellContent = queryByTestId(cells[0], 'cell-content').firstChild
-  expect(cellContent).toBeNull()
+  const gameBoard = renderWithProviders(<GameBoard />)
+  const cells = gameBoard.queryAllByTestId('cell')
+  expect(cells[0].textContent).toBe('')
   fireEvent.click(cells[0])
-  expect(queryByTestId(cells[0], 'cell-content').firstChild).not.toBeNull()
+  expect(cells[0].textContent).toBe('X')
 })

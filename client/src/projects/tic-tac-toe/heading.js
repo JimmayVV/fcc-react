@@ -10,12 +10,14 @@ const Heading = props => {
   const winnerMessage = gameOver === TIE_GAME ? `${TIE_GAME} game!` : gameOver ? `${gameOver} wins!` : null
 
   return (
-    <header className={`${gameOver || !gameStarted ? 'modal-open' : ''}`} data-testid="header">
-      <h1 className={`ticTacToe-header ${gameOver ? 'modal-open' : ''}`}>Tic Tac Toe!</h1>
-      <h3>Player 1: {JSON.stringify(props.players[0])}</h3>
-      <h3>Player 2: {JSON.stringify(props.players[1])}</h3>
+    <>
+      <header className={`${gameOver || !gameStarted ? 'modal-open' : ''}`} data-testid="header">
+        <h1 className={`ticTacToe-header ${gameOver ? 'modal-open' : ''}`}>Tic Tac Toe!</h1>
+        <h3>Player 1: {JSON.stringify(props.players[0])}</h3>
+        <h3>Player 2: {JSON.stringify(props.players[1])}</h3>
+      </header>
 
-      <Modal toggleVar={!gameStarted}>
+      <Modal toggleVar={!gameStarted} data-testid="settings-modal">
         <Modal.Header>Test!</Modal.Header>
         <Modal.Content>Test Content!</Modal.Content>
         <Modal.Footer>
@@ -29,7 +31,7 @@ const Heading = props => {
         </Modal.Footer>
       </Modal>
 
-      <Modal toggleVar={gameOver}>
+      <Modal toggleVar={gameOver} data-testid="gameover-modal">
         <Modal.Header>Game Over!</Modal.Header>
         <Modal.Content>{winnerMessage}</Modal.Content>
         <Modal.Footer>
@@ -51,7 +53,7 @@ const Heading = props => {
           </Button>
         </Modal.Footer>
       </Modal>
-    </header>
+    </>
   )
 }
 
