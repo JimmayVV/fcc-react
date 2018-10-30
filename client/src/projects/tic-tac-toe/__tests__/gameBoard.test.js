@@ -17,8 +17,7 @@ it('should render', () => {
 })
 
 it('should have 9 cell children', () => {
-  const {getByTestId, queryAllByTestId} = renderWithProviders(<GameBoard />)
-  const gameBoard = getByTestId('gameboard')
+  const {queryAllByTestId} = renderWithProviders(<GameBoard />)
   const cells = queryAllByTestId('cell')
   expect(cells.length).toBe(9)
 })
