@@ -1,9 +1,13 @@
-import React from "react";
-import { render } from "react-testing-library";
-import TicTacToe, { Heading } from "../index";
-import GameBoard from "../gameBoard";
+import React from 'react'
+import {render} from 'react-testing-library'
+import TicTacToe from '../index'
 
-it("should have 1 heading and 1 game board", () => {
-  const { container } = render(<TicTacToe />);
-  expect(container.firstChild).toMatchSnapshot();
-});
+it('should render a header and a game board', () => {
+  const {getByTestId} = render(<TicTacToe />)
+
+  const header = getByTestId('header')
+  const gameBoard = getByTestId('gameboard')
+
+  expect(header).toBeTruthy()
+  expect(gameBoard).toBeTruthy()
+})

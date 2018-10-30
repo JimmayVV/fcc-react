@@ -1,21 +1,19 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import Modal from './modal'
 import Button from './button'
 
-import { resetBoard, changePlayer, gameStarted as startGame, resetGame, TIE_GAME } from './actions'
+import {resetBoard, changePlayer, gameStarted as startGame, resetGame, TIE_GAME} from './actions'
 
 const Heading = props => {
-  const { gameOver, gameStarted } = props
+  const {gameOver, gameStarted} = props
   const winnerMessage = gameOver === TIE_GAME ? `${TIE_GAME} game!` : gameOver ? `${gameOver} wins!` : null
 
   return (
-    <>
-      <header className={`${gameOver || !gameStarted ? 'modal-open' : ''}`}>
-        <h1 className={`ticTacToe-header ${gameOver ? 'modal-open' : ''}`}>Tic Tac Toe!</h1>
-        <h3>Player 1: {JSON.stringify(props.players[0])}</h3>
-        <h3>Player 2: {JSON.stringify(props.players[1])}</h3>
-      </header>
+    <header className={`${gameOver || !gameStarted ? 'modal-open' : ''}`} data-testid="header">
+      <h1 className={`ticTacToe-header ${gameOver ? 'modal-open' : ''}`}>Tic Tac Toe!</h1>
+      <h3>Player 1: {JSON.stringify(props.players[0])}</h3>
+      <h3>Player 2: {JSON.stringify(props.players[1])}</h3>
 
       <Modal toggleVar={!gameStarted}>
         <Modal.Header>Test!</Modal.Header>
@@ -53,7 +51,7 @@ const Heading = props => {
           </Button>
         </Modal.Footer>
       </Modal>
-    </>
+    </header>
   )
 }
 
@@ -63,5 +61,5 @@ export default connect(
     gameOver: state.gameOver,
     gameStarted: state.gameStarted,
   }), // MapStateToProps
-  { resetBoard, changePlayer, startGame, resetGame } // MapDispatchToProps
+  {resetBoard, changePlayer, startGame, resetGame} // MapDispatchToProps
 )(Heading)

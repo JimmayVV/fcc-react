@@ -1,15 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { playMove as _playMove, changePlayer as _changePlayer, endGame as _endGame, TIE_GAME } from './actions'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {playMove as _playMove, changePlayer as _changePlayer, endGame as _endGame, TIE_GAME} from './actions'
 import gameHelper from './helpers/game'
 
 import Cell from './cell'
 
 class GameBoard extends React.Component {
   applyClick = pos => {
-    const { playMove, changePlayer, players, currentPlayer, board, endGame, gameOver } = this.props
+    const {playMove, changePlayer, players, currentPlayer, board, endGame, gameOver} = this.props
 
     if (board[pos] !== null || gameOver) return
 
@@ -58,19 +58,19 @@ class GameBoard extends React.Component {
   }
 
   render() {
-    const { board, gameOver, gameStarted } = this.props
+    const {board, gameOver, gameStarted} = this.props
 
     return (
-      <div className={`ticTacToe-board ${gameOver || !gameStarted ? 'modal-open' : ''}`}>
-        <Cell pos={0} applyClick={this.applyClick} board={board} />
-        <Cell pos={1} applyClick={this.applyClick} board={board} />
-        <Cell pos={2} applyClick={this.applyClick} board={board} />
-        <Cell pos={3} applyClick={this.applyClick} board={board} />
-        <Cell pos={4} applyClick={this.applyClick} board={board} />
-        <Cell pos={5} applyClick={this.applyClick} board={board} />
-        <Cell pos={6} applyClick={this.applyClick} board={board} />
-        <Cell pos={7} applyClick={this.applyClick} board={board} />
-        <Cell pos={8} applyClick={this.applyClick} board={board} />
+      <div className={`ticTacToe-board ${gameOver || !gameStarted ? 'modal-open' : ''}`} data-testid="gameboard">
+        <Cell pos={0} applyClick={this.applyClick} board={board} data-testid="cell1" />
+        <Cell pos={1} applyClick={this.applyClick} board={board} data-testid="cell2" />
+        <Cell pos={2} applyClick={this.applyClick} board={board} data-testid="cell3" />
+        <Cell pos={3} applyClick={this.applyClick} board={board} data-testid="cell4" />
+        <Cell pos={4} applyClick={this.applyClick} board={board} data-testid="cell5" />
+        <Cell pos={5} applyClick={this.applyClick} board={board} data-testid="cell6" />
+        <Cell pos={6} applyClick={this.applyClick} board={board} data-testid="cell7" />
+        <Cell pos={7} applyClick={this.applyClick} board={board} data-testid="cell8" />
+        <Cell pos={8} applyClick={this.applyClick} board={board} data-testid="cell9" />
       </div>
     )
   }
@@ -107,7 +107,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ playMove: _playMove, changePlayer: _changePlayer, endGame: _endGame }, dispatch)
+  return bindActionCreators({playMove: _playMove, changePlayer: _changePlayer, endGame: _endGame}, dispatch)
 }
 
 export default connect(
